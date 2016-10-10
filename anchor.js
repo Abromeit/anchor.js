@@ -14,9 +14,10 @@ $.fn.anchorEnablePageScroll = function() {
   $(document).on('ready load',function(){
 
     var $el = $(location.hash),
-        y   = $el.offset().top;
+        y;
 
     if( $el.length ){
+      y = $el.offset().top;
       moveTo(y);
     }
 
