@@ -21,7 +21,6 @@ $.fn.anchor = function(options) {
   return this.each(function() {
     var $self = $(this),
         name  = $self.text(),
-        count = 1,
         id;
 
     /**
@@ -35,14 +34,14 @@ $.fn.anchor = function(options) {
     /**
      *  Make sure anchor isn't already in use
      */
-    if(usedNames[name] >= 1) {
-      count = usedNames[name] + 1;
-      id = name + '-' + count;
+    if(usedNames[name]) {
+      usedNames[name]++;
+      id = name + '-' + usedNames[name];
     } 
     else {
+      usedNames[name] = 1;
       id = name;
     }
-    usedNames[name] = count;
 
     /**
      *  Build clickable link
