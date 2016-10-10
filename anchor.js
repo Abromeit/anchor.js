@@ -10,7 +10,6 @@ $.fn.anchor = function(options) {
     maxLength:    100
   },
   opt       = $.extend({}, defaults, options),
-  elements  = this,
   usedNames = [],
   cleanName = function(name) {
     return name.replace(/[^\w\s]+/gi, '')
@@ -19,7 +18,7 @@ $.fn.anchor = function(options) {
                .toLowerCase() || 'a';
   };
 
-  return elements.each(function() {
+  return this.each(function() {
     var $self = $(this),
         name  = $self.text(),
         count = 1,
@@ -43,6 +42,7 @@ $.fn.anchor = function(options) {
     else {
       id = name;
     }
+    usedNames[name] = count;
 
     /**
      *  Set anchor id and class name
@@ -53,12 +53,14 @@ $.fn.anchor = function(options) {
     /**
      *  Append clickable anchor
      */
-    self.append('<a class="' + opt.anchorClass + '" href="#' + id + '">' + opt.symbol + '</a>');
-
-    /**
-     *  Update count of used name
-     */
-    usedNames[name] = count;
+    var $a = $('<a></a>',{
+               class: opt.anchorClass,
+               href:  '#' + id,
+               text:  opt.symbol
+             });
+             
+    self.append($a);
+    
   });
 };
 
