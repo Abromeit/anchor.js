@@ -1,6 +1,31 @@
 (function($)
 {
 
+
+$.fn.anchorEnablePageScroll = function() {
+
+  var moveTo = function(target_y,speed,$target){
+    speed   = speed || 'slow';
+    $target = $('html,body');
+
+    $target.animate({scrollTop:target_y},speed);
+  };
+
+  $(document).on('ready load',function(){
+
+    var $el = $(location.hash),
+        y   = $el.offset().top;
+
+    if( $el.length ){
+      moveTo(y);
+    }
+
+  });
+
+  return this;
+};
+
+
 $.fn.anchor = function(options) {
 
   var defaults = {
