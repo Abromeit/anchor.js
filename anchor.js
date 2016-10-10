@@ -4,19 +4,19 @@
 $.fn.anchor = function(options) {
 
   var defaults = {
-    headingClass: 'anchored',
-    anchorClass:  'anchor',
-    symbol:       '¶',
-    maxLength:    100
-  },
-  opt       = $.extend({}, defaults, options),
-  usedNames = [],
-  cleanName = function(name) {
-    return name.replace(/[^\w\s]+/gi, '')
-               .replace(/[_\s]/g, '-')
-               .replace(/^-+|-+$/g,'')
-               .toLowerCase() || 'a';
-  };
+        headingClass: 'anchored',
+        anchorClass:  'anchor',
+        symbol:       '¶',
+        maxLength:    100
+      },
+      opt       = $.extend({}, defaults, options),
+      usedNames = [],
+      cleanName = function(name) {
+        return name.replace(/[^\w\s]+/gi, '')
+                   .replace(/[_\s]/g, '-')
+                   .replace(/^-+|-+$/g,'')
+                   .toLowerCase() || 'a';
+      };
 
   return this.each(function() {
     var $self = $(this),
@@ -45,21 +45,21 @@ $.fn.anchor = function(options) {
     usedNames[name] = count;
 
     /**
-     *  Set anchor id and class name
+     *  Build clickable link
      */
-    self.addClass(opt.headingClass)
-        .attr('id', id);
+    var $a = $('<a></a>', {
+      class: opt.anchorClass,
+      href:  '#' + id,
+      text:  opt.symbol
+    });
 
     /**
-     *  Append clickable anchor
+     *  Set anchor id and class name
+     *  and append our clickable link
      */
-    var $a = $('<a></a>',{
-               class: opt.anchorClass,
-               href:  '#' + id,
-               text:  opt.symbol
-             });
-             
-    self.append($a);
+    $self.addClass(opt.headingClass)
+         .attr('id', id)
+         .append($a);
     
   });
 };
