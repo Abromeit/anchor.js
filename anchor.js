@@ -21,7 +21,8 @@ $.fn.anchor = function(options) {
   return this.each(function() {
     var $self = $(this),
         name  = $self.text(),
-        id;
+        id,
+        $a;
 
     /**
      *  Strip away unwanted characters
@@ -46,7 +47,7 @@ $.fn.anchor = function(options) {
     /**
      *  Build clickable link
      */
-    var $a = $('<a></a>', {
+    $a = $('<a></a>', {
       class: opt.anchorClass,
       href:  '#' + id,
       text:  opt.symbol
