@@ -1,3 +1,6 @@
+(function($)
+{
+
 $.fn.anchor = function(options) {
 
   var defaults = {
@@ -5,38 +8,39 @@ $.fn.anchor = function(options) {
     anchorClass:  'anchor',
     symbol:       '¶',
     maxLength:    100
+  },
+  opt       = $.extend({}, defaults, options),
+  elements  = this,
+  usedNames = [],
+  cleanName = function(name) {
+    return name.replace(/[^\w\s]+/gi, '')
+               .replace(/[_\s]/g, '-')
+               .replace(/^-+|-+$/g,'')
+               .toLowerCase() || 'a';
   };
 
-  var opt = $.extend({}, defaults, options),
-      elements = $(this),
-      usedNames = [];
-
-  var cleanName = function (name) {
-    var cleaned = name.replace(/[^a-z0-9\s]/gi, '')
-                      .replace(/[_\s]/g, '-')
-                      .replace(/ /g, '-').toLowerCase();
-    return cleaned;
-  };
-
-  elements.each(function() {
-    var self = $(this),
-        name = self.text(),
+  return elements.each(function() {
+    var $self = $(this),
+        name  = $self.text(),
         count = 1,
         id;
 
     /**
      *  Strip away unwanted characters
      */
-    if(name.length > opt.maxLength) name = name.substring(0, opt.maxLength);
     name = cleanName(name);
+    if(name.length > opt.maxLength) {
+      name = name.substring(0, opt.maxLength);
+    }
 
     /**
      *  Make sure anchor isn't already in use
      */
-    if (usedNames[name] >= 1) {
+    if(usedNames[name] >= 1) {
       count = usedNames[name] + 1;
       id = name + '-' + count;
-    } else {
+    } 
+    else {
       id = name;
     }
 
@@ -57,3 +61,5 @@ $.fn.anchor = function(options) {
     usedNames[name] = count;
   });
 };
+
+})(jQuery);
