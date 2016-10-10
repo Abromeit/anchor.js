@@ -6,7 +6,7 @@ $.fn.anchorEnablePageScroll = function() {
 
   var moveTo = function(target_y,speed,$target){
     speed   = speed || 'slow';
-    $target = $('html,body');
+    $target = $target || $('html,body');
 
     $target.animate({scrollTop:target_y},speed);
   };
