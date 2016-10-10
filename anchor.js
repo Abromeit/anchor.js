@@ -10,7 +10,7 @@ $.fn.anchor = function(options) {
         maxLength:    100
       },
       opt       = $.extend({}, defaults, options),
-      usedNames = [],
+      usedNames = {},
       cleanName = function(name) {
         return name.replace(/[^\w\s]+/gi, '')
                    .replace(/[_\s]/g, '-')
